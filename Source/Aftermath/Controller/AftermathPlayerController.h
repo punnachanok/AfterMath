@@ -26,9 +26,13 @@ protected:
 	virtual void SetupInputComponent() override;
 private:
 	void Move(const FInputActionValue& InputActionValue);
+	void JumpFunc(const FInputActionValue& InputActionValue);
 	
 	UPROPERTY(EditAnywhere, Category = "Enhanced Input")
 	TObjectPtr<UInputAction> MoveAction;
+
+	UPROPERTY(EditAnywhere, Category = "Enhanced Input")
+	TObjectPtr<UInputAction> JumpAction;
 
 	UPROPERTY(EditAnywhere, Category = "Enhanced Input")
 	TObjectPtr<UInputMappingContext> AftermathMappingContext;

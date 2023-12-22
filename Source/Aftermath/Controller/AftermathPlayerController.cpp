@@ -4,6 +4,7 @@
 #include "AftermathPlayerController.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
+#include "GameFramework/Character.h"
 
 using namespace std;
 
@@ -39,12 +40,22 @@ void AAftermathPlayerController::Move(const FInputActionValue& InputActionValue)
 	
 }
 
+void AAftermathPlayerController::JumpFunc(const FInputActionValue& InputActionValue)
+{
+	bool IsJump = InputActionValue.Get<bool>();
+	if(IsJump)
+	{
+		GetCharacter()->Jump();
+	}
+}
+
 void AAftermathPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
 
 	UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAftermathPlayerController::Move);
+	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AAftermathPlayerController::JumpFunc);
 }
 
 

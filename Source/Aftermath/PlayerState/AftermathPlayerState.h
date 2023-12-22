@@ -3,22 +3,23 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/PlayerState.h"
 #include "AbilitySystemInterface.h"
-#include "GameFramework/Character.h"
-#include "AftermathCharacterBase.generated.h"
+#include "AftermathPlayerState.generated.h"
+
 
 class UAttributeSet;
 class UAbilitySystemComponent;
-
+/**
+ * 
+ */
 UCLASS()
-class AFTERMATH_API AAftermathCharacterBase : public ACharacter, public IAbilitySystemInterface
+class AFTERMATH_API AAftermathPlayerState : public APlayerState, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
 public:
-	// Sets default values for this character's properties
-	AAftermathCharacterBase();
-
+	AAftermathPlayerState();
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
 	virtual UAttributeSet* GetAttributeSet() const;
 protected:
@@ -27,4 +28,5 @@ protected:
 
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
+	
 };
