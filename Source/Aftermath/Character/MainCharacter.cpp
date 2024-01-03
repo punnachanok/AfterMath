@@ -1,12 +1,17 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "MainCharacter.h"
+
+#include "AbilitySystemComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "../Animation/AftermathAnimInstance.h"
+#include "Aftermath/PlayerState/AftermathPlayerState.h"
 #include "GameFramework/Character.h"
 #include "Animation/AnimInstance.h"
+#include "../GameplayAbility/AftermathAttributeSet.h"
+
 
 AMainCharacter::AMainCharacter()
 {
@@ -28,6 +33,7 @@ AMainCharacter::AMainCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
+
 	
 	
 }
@@ -41,8 +47,14 @@ void AMainCharacter::Tick(float DeltaSeconds)
 	AftermathAnimInstance->Speed = VectorVelocity.Size2D();
 	
 	AftermathAnimInstance->IsPlayerFalling = CharacterMovementComponent->IsFalling();
-}
+	// float TempHealth = AftermathAttributeSet->HealthFloat;
+	//UE_LOG(LogTemp, Warning, TEXT("PlayerHealth: %f"), TempHealth);
+	//GEngine->AddOnScreenDebugMessage(1, 5.f, FColor::Black, TEXT("%f"), TempHealth);
 	//UE_LOG(LogTemp, Warning, TEXT("speed: %f"), AftermathAnimInstance->Speed);
+}
+	
+
+
 
 
 void AMainCharacter::BeginPlay()
@@ -59,6 +71,40 @@ void AMainCharacter::BeginPlay()
 	AftermathAnimInstance = Cast<UAftermathAnimInstance>(AnimInstance);
 
 	check(AftermathAnimInstance)
+	// AftermathAttributeSet = Cast<UAftermathAttributeSet>(AftermathPlayerState->GetAttributeSet());
+	// check(AftermathAttributeSet)
+	//UE_LOG(LogTemp, Warning, TEXT("BeginPlay Started"));
+
+	CharacterMovementComponent->MaxWalkSpeed = 1000;
+}
+
+//For the client
+void AMainCharacter::OnRep_PlayerState()
+{
+	Super::OnRep_PlayerState();
 	
-	UE_LOG(LogTemp, Warning, TEXT("BeginPlay Started"));
+	AftermathPlayerState = GetPlayerState<AAftermathPlayerState>();
+	//check(AftermathPlayerState)
+	
+	AbilitySystemComponent = AftermathPlayerState->GetAbilitySystemComponent();
+	AbilitySystemComponent->InitAbilityActorInfo(AftermathPlayerState,  this);
+	
+	AttributeSet = AftermathPlayerState->GetAttributeSet();
+	check(AttributeSet);
+	
+	
+}
+
+//For the server
+void AMainCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	AftermathPlayerState = GetPlayerState<AAftermathPlayerState>();
+
+	AbilitySystemComponent = AftermathPlayerState->GetAbilitySystemComponent();
+	AbilitySystemComponent->InitAbilityActorInfo(AftermathPlayerState,  this);
+	
+	AttributeSet = AftermathPlayerState->GetAttributeSet();
+	check(AttributeSet);
 }

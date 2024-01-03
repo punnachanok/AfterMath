@@ -20,8 +20,11 @@ class AFTERMATH_API AAftermathPlayerState : public APlayerState, public IAbility
 
 public:
 	AAftermathPlayerState();
+	UFUNCTION(BlueprintCallable)
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+	UFUNCTION(BlueprintCallable)
 	virtual UAttributeSet* GetAttributeSet() const;
+	
 protected:
 	UPROPERTY()
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;

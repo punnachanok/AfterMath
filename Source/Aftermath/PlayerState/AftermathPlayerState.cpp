@@ -4,15 +4,18 @@
 #include "../PlayerState/AftermathPlayerState.h"
 
 #include "AbilitySystemComponent.h"
+#include "Aftermath/GameplayAbility/AftermathAbilitySystemComponent.h"
+#include "Aftermath/GameplayAbility/AftermathAttributeSet.h"
 
 AAftermathPlayerState::AAftermathPlayerState()
 {
 	NetUpdateFrequency = 100;
 
-	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("Ability System Component");
+	AbilitySystemComponent = CreateDefaultSubobject<UAftermathAbilitySystemComponent>("Ability System Component");
 	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 	
-	AttributeSet = CreateDefaultSubobject<UAttributeSet>("Attribute Set");
+	AttributeSet = CreateDefaultSubobject<UAftermathAttributeSet>("Attribute Set");     
 }
 
 UAbilitySystemComponent* AAftermathPlayerState::GetAbilitySystemComponent() const

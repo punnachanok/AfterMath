@@ -7,6 +7,8 @@
 #include "MainCharacter.generated.h"
 
 
+class UAftermathAttributeSet;
+class AAftermathPlayerState;
 /**
  * 
  */
@@ -24,6 +26,8 @@ public:
 	
 	virtual void Tick(float DeltaSeconds) override;
 	virtual void BeginPlay() override;
+	virtual void OnRep_PlayerState() override;
+	virtual void PossessedBy(AController* NewController) override;
 
 	UPROPERTY()
 	UCharacterMovementComponent* CharacterMovementComponent;
@@ -39,4 +43,10 @@ protected:
 
 	UPROPERTY()
 	UAftermathAnimInstance* AftermathAnimInstance;
+
+	UPROPERTY()
+	AAftermathPlayerState* AftermathPlayerState;
+
+	UPROPERTY()
+	UAftermathAttributeSet* AftermathAttributeSet;
 };

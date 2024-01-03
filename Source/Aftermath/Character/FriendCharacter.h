@@ -17,5 +17,5 @@ class AFTERMATH_API AFriendCharacter : public AAftermathCharacterBase
 public:
 	AFriendCharacter();
 
-	
+	virtual void BeginPlay() override;
 };

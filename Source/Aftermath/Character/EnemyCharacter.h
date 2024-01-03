@@ -16,4 +16,6 @@ class AFTERMATH_API AEnemyCharacter : public AAftermathCharacterBase
 
 public:
 	AEnemyCharacter();
+
+	virtual void BeginPlay() override;
 };
