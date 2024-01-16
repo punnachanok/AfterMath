@@ -3,3 +3,8 @@
 
 #include "../UI/UserWidgetBase.h"
 
+void UUserWidgetBase::SetWidgetController(UObject* InWidgetController)
+{
+	WidgetController = InWidgetController;
+	WidgetControllerSet();
+}

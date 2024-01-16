@@ -8,6 +8,8 @@ GAMEPLAYATTRIBUTE_VALUE_GETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_SETTER(PropertyName) \
 GAMEPLAYATTRIBUTE_VALUE_INITTER(PropertyName)
 
+DECLARE_MULTICAST_DELEGATE_OneParam(OnHealthChangedDelegate, float)
+
 #include "CoreMinimal.h"
 #include "AbilitySystemComponent.h"
 #include "AttributeSet.h"
@@ -71,4 +73,24 @@ public:
 	// float HealthFloat;
 	// UPROPERTY(BlueprintReadOnly)
 	// float MaxHealthFloat;
+
+	UFUNCTION(BlueprintCallable)
+	float GetHealthFloat();
+
+	UFUNCTION(BlueprintCallable)
+	float GetMaxHealthFloat();
+
+	UFUNCTION(BlueprintCallable)
+	float GetManaFloat();
+
+	UFUNCTION(BlueprintCallable)
+	float GetMaxManaFloat();
+
+	UFUNCTION(BlueprintCallable)
+	float GetStaminaFloat();
+
+	UFUNCTION(BlueprintCallable)
+	float GetMaxStaminaFloat();
+
+	OnHealthChangedDelegate OnHealthChanged;
 };

@@ -3,6 +3,8 @@
 
 #include "AftermathCharacterBase.h"
 
+#include "Aftermath/GameplayAbility/AftermathAbilitySystemComponent.h"
+
 // Sets default values
 AAftermathCharacterBase::AAftermathCharacterBase()
 {
@@ -21,3 +23,12 @@ UAttributeSet* AAftermathCharacterBase::GetAttributeSet() const
 {
 	return AttributeSet;
 }
+
+// void AAftermathCharacterBase::AddCharacterAbilities()
+// {
+// 	
+// 	UAftermathAbilitySystemComponent* AMathASC = CastChecked<UAftermathAbilitySystemComponent>(AbilitySystemComponent);
+// 	if(!HasAuthority()) return;
+//
+// 	AMathASC->AddCharacterAbilities(StartupAbilities);
+// }

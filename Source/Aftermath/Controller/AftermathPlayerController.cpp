@@ -51,9 +51,20 @@ void AAftermathPlayerController::MoveRun(const FInputActionValue& InputActionVal
 		const FVector RightDirectionWalk = FVector(0, 0.25, 0);
 		if(APawn* ControlledPawn = GetPawn<APawn>())
 		{
-			ControlledPawn->AddMovementInput(UpDirectionWalk, MoveVector.Y);
-			ControlledPawn->AddMovementInput(RightDirectionWalk, MoveVector.X);
+			if(StaticCast<int>(abs(MoveVector.X + MoveVector.Y)) % 2 == 1)
+			{
+				ControlledPawn->AddMovementInput(UpDirectionWalk, MoveVector.Y);
+				
+				ControlledPawn->AddMovementInput(RightDirectionWalk, MoveVector.X);
+			}
+			else if(StaticCast<int>(MoveVector.X + MoveVector.Y) % 2 == 0)
+			{
+				ControlledPawn->AddMovementInput(UpDirectionWalk / sqrt(2), MoveVector.Y);
+				ControlledPawn->AddMovementInput(RightDirectionWalk / sqrt(2), MoveVector.X);
+			}
 		}
+
+		
 	}
 
 	void AAftermathPlayerController::JumpFunc(const FInputActionValue& InputActionValue)
@@ -92,24 +103,29 @@ void AAftermathPlayerController::Tick(float DeltaSeconds)
 
 	//UE_LOG(LogTemp, Warning, TEXT("IsRunning: %s"), IsRunning ? TEXT("1") : TEXT("0"))
 	UE_LOG(LogTemp, Warning, TEXT("CoolDown: %f"), RunCoolDown);
+	float StaminaF = AMAttributeSet->GetStamina();
+	
 	
 	if(IsRunning)
 	{
-		float StaminaF = AMAttributeSet->GetStamina();
-		AMAttributeSet->SetStamina(StaminaF -= 0.1);
+		AMAttributeSet->SetStamina(StaminaF -= 10 * DeltaSeconds);
 	}
 
 	if(!IsRunning)
 	{
-		RunCoolDown -= 0.1;
+		RunCoolDown -= 10 * DeltaSeconds;
 	}
 
 	if(RunCoolDown <= 0)
 	{
-		float StaminaF = AMAttributeSet->GetStamina();
-		StaminaF = FMath::Clamp(StaminaF, 0, 10);
-		AMAttributeSet->SetStamina(StaminaF += 0.1);
+		
+		StaminaF = FMath::Clamp(StaminaF, 0, 50);
+		AMAttributeSet->SetStamina(StaminaF += 10 * DeltaSeconds);
 	}
+	if(StaminaF <= 0)
+	{
+		GetCharacter()->GetCharacterMovement()->MaxWalkSpeed = 1000;
+	}	
 }
 
 void AAftermathPlayerController::SetupInputComponent()

@@ -13,5 +13,15 @@ UCLASS()
 class AFTERMATH_API UUserWidgetBase : public UUserWidget
 {
 	GENERATED_BODY()
+
+public:
+	UFUNCTION(BlueprintCallable)
+	void SetWidgetController(UObject* InWidgetController);
+
+	UPROPERTY(BlueprintReadOnly)
+	TObjectPtr<UObject> WidgetController;
+	
+	UFUNCTION(BlueprintImplementableEvent)
+	void WidgetControllerSet();
 	
 };

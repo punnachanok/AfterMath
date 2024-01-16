@@ -14,8 +14,8 @@ UAftermathAttributeSet::UAftermathAttributeSet()
 	InitMana(25);
 	InitMaxMana(50);
 
-	InitStamina(10);
-	InitMaxStamina(10);
+	InitStamina(50);
+	InitMaxStamina(50);
 
 	// HealthFloat = GetHealth();
 	// MaxHealthFloat = GetMaxHealth();
@@ -64,4 +64,35 @@ void UAftermathAttributeSet::OnRep_Stamina(const FGameplayAttributeData& OldStam
 void UAftermathAttributeSet::OnRep_MaxStamina(const FGameplayAttributeData& OldMaxStamina) const
 {
 	GAMEPLAYATTRIBUTE_REPNOTIFY(UAftermathAttributeSet, MaxStamina, OldMaxStamina);
+}
+
+float UAftermathAttributeSet::GetHealthFloat()
+{
+	return GetHealth();
+}
+
+float UAftermathAttributeSet::GetMaxHealthFloat()
+{
+	return GetMaxHealth();
+}
+
+float UAftermathAttributeSet::GetManaFloat()
+{
+	return GetMana();
+}
+
+float UAftermathAttributeSet::GetMaxManaFloat()
+{
+	return GetMaxMana();
+}
+
+float UAftermathAttributeSet::GetStaminaFloat()
+{
+	return GetStamina();
+}
+
+float UAftermathAttributeSet::GetMaxStaminaFloat()
+{
+	return GetMaxStamina();
+	
 }

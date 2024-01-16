@@ -11,6 +11,7 @@
 #include "GameFramework/Character.h"
 #include "Animation/AnimInstance.h"
 #include "../GameplayAbility/AftermathAttributeSet.h"
+#include "Aftermath/UI/AmathHUD.h"
 
 
 AMainCharacter::AMainCharacter()
@@ -60,8 +61,9 @@ void AMainCharacter::Tick(float DeltaSeconds)
 void AMainCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
-	CharacterMovementComponent = GetCharacterMovement();
+	
+	CharacterMovementComponent = GetCharacterMovement(); // TODO: CharacterMovementComponent = nullptr
+	check(CharacterMovementComponent);
 	
 	CharacterMovementComponent->bOrientRotationToMovement = true;
 	CharacterMovementComponent->RotationRate = FRotator(0, 400, 0);
@@ -92,7 +94,11 @@ void AMainCharacter::OnRep_PlayerState()
 	AttributeSet = AftermathPlayerState->GetAttributeSet();
 	check(AttributeSet);
 	
+	APlayerController* PlayerController = AftermathPlayerState->GetPlayerController();
+	AHUD* HUD = PlayerController->GetHUD();
+	AAmathHUD* AmathHUD = Cast<AAmathHUD>(HUD);
 	
+	AmathHUD->InitOverlay(PlayerController, AftermathPlayerState, AbilitySystemComponent, AttributeSet);
 }
 
 //For the server
@@ -104,7 +110,14 @@ void AMainCharacter::PossessedBy(AController* NewController)
 
 	AbilitySystemComponent = AftermathPlayerState->GetAbilitySystemComponent();
 	AbilitySystemComponent->InitAbilityActorInfo(AftermathPlayerState,  this);
+	// AddCharacterAbilities();
 	
 	AttributeSet = AftermathPlayerState->GetAttributeSet();
 	check(AttributeSet);
+
+	APlayerController* PlayerController = AftermathPlayerState->GetPlayerController();
+	AHUD* HUD = PlayerController->GetHUD();
+	AAmathHUD* AmathHUD = Cast<AAmathHUD>(HUD);
+	
+	AmathHUD->InitOverlay(PlayerController, AftermathPlayerState, AbilitySystemComponent, AttributeSet);
 }
