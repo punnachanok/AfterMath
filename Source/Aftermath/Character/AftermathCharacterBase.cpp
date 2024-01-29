@@ -11,7 +11,8 @@ AAftermathCharacterBase::AAftermathCharacterBase()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	
+	Weapon = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Weapon"));
+	Weapon->SetupAttachment(GetMesh(), "WeaponSocket");
 }
 
 UAbilitySystemComponent* AAftermathCharacterBase::GetAbilitySystemComponent() const
@@ -24,11 +25,11 @@ UAttributeSet* AAftermathCharacterBase::GetAttributeSet() const
 	return AttributeSet;
 }
 
-// void AAftermathCharacterBase::AddCharacterAbilities()
-// {
-// 	
-// 	UAftermathAbilitySystemComponent* AMathASC = CastChecked<UAftermathAbilitySystemComponent>(AbilitySystemComponent);
-// 	if(!HasAuthority()) return;
-//
-// 	AMathASC->AddCharacterAbilities(StartupAbilities);
-// }
+void AAftermathCharacterBase::AddCharacterAbilities()
+{
+	
+	UAftermathAbilitySystemComponent* AMathASC = CastChecked<UAftermathAbilitySystemComponent>(AbilitySystemComponent);
+	if(!HasAuthority()) return;
+
+	AMathASC->AddCharacterAbilities(StartupAbilities);
+}

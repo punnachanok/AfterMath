@@ -2,11 +2,15 @@
 
 
 #include "AftermathPlayerController.h"
+
+#include "AbilitySystemBlueprintLibrary.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "../GameplayAbility/AftermathAttributeSet.h"
+#include "Aftermath/GameplayAbility/AftermathAbilitySystemComponent.h"
+#include "Aftermath/Input/AMathEnhancedInputComponent.h"
 #include "Aftermath/PlayerState/AftermathPlayerState.h"
 
 using namespace std;
@@ -128,15 +132,51 @@ void AAftermathPlayerController::Tick(float DeltaSeconds)
 	}	
 }
 
+void AAftermathPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
+{
+	GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Silver, FString::Printf(TEXT("C++ %s"), *InputTag.ToString()));
+}
+
+void AAftermathPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)
+{
+	if(GetASC() == nullptr)
+	{
+		return;
+	}
+	GetASC()->AbilityInputTagReleased(InputTag);
+}
+
+void AAftermathPlayerController::AbilityInputTagHeld(FGameplayTag InputTag)
+{
+	if(GetASC() == nullptr)
+	{
+		return;
+	}
+	
+	GetASC()->AbilityInputTagHeld(InputTag);
+}
+
+UAftermathAbilitySystemComponent* AAftermathPlayerController::GetASC()
+{
+	if(AMathAbilitySystemComponent == nullptr)
+	{
+		AMathAbilitySystemComponent = Cast<UAftermathAbilitySystemComponent>(UAbilitySystemBlueprintLibrary::GetAbilitySystemComponent(GetPawn<APawn>()));
+	}
+
+	return AMathAbilitySystemComponent;
+}
+
 void AAftermathPlayerController::SetupInputComponent()
 	{
 		Super::SetupInputComponent();
 
-		UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(InputComponent);
-		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAftermathPlayerController::MoveWalk);
-		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AAftermathPlayerController::JumpFunc);
-		EnhancedInputComponent->BindAction(ShiftRunActionStarted, ETriggerEvent::Triggered, this, &AAftermathPlayerController::ShiftRunStarted);
-		EnhancedInputComponent->BindAction(ShiftRunActionStarted, ETriggerEvent::Completed, this, &AAftermathPlayerController::ShiftRunEnded);
+		UAMathEnhancedInputComponent* AMathInputComponent = Cast<UAMathEnhancedInputComponent>(InputComponent);
+		AMathInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AAftermathPlayerController::MoveWalk);
+		AMathInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &AAftermathPlayerController::JumpFunc);
+		AMathInputComponent->BindAction(ShiftRunActionStarted, ETriggerEvent::Triggered, this, &AAftermathPlayerController::ShiftRunStarted);
+		AMathInputComponent->BindAction(ShiftRunActionStarted, ETriggerEvent::Completed, this, &AAftermathPlayerController::ShiftRunEnded);
+
+		AMathInputComponent->BindAbilityActions(InputConfig, this, &ThisClass::AbilityInputTagPressed, &ThisClass::AbilityInputTagReleased, &ThisClass::AbilityInputTagHeld);
 	}
 
 

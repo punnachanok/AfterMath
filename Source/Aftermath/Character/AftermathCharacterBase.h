@@ -29,9 +29,12 @@ protected:
 	UPROPERTY()
 	TObjectPtr<UAttributeSet> AttributeSet;
 
-	// void AddCharacterAbilities();
+	UPROPERTY(EditAnywhere, Category = "Weapon")
+	USkeletalMeshComponent* Weapon;
 
-// private:
-// 	UPROPERTY(EditAnywhere, Category = "Abilities")
-// 	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
+	void AddCharacterAbilities();
+
+private:
+	UPROPERTY(EditAnywhere, Category = "Abilities")
+	TArray<TSubclassOf<UGameplayAbility>> StartupAbilities;
 };

@@ -4,11 +4,15 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "GameplayTagContainer.h"
 #include "AftermathPlayerController.generated.h"
 
+struct FGameplayTag;
+class UAMathInputConfig;
 class AAftermathPlayerState;
 class UAftermathAttributeSet;
 struct FInputActionValue;
+class UAftermathAbilitySystemComponent;
 /**
  * 
  */
@@ -63,4 +67,14 @@ private:
 
 	float RunningSpeed = 800.f;
 	float WalkingSpeed = 600.f;
+
+	void AbilityInputTagPressed(FGameplayTag InputTag);
+	void AbilityInputTagReleased(FGameplayTag InputTag);
+	void AbilityInputTagHeld(FGameplayTag InputTag);
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Input")
+	TObjectPtr<UAMathInputConfig> InputConfig;
+
+	TObjectPtr<UAftermathAbilitySystemComponent> AMathAbilitySystemComponent;
+	UAftermathAbilitySystemComponent* GetASC();
 };

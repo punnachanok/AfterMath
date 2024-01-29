@@ -38,6 +38,8 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	UCameraComponent* Camera = nullptr;
 
+	
+
 	UPROPERTY()
 	UAnimInstance* AnimInstance {nullptr};
 

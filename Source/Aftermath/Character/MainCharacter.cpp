@@ -110,7 +110,7 @@ void AMainCharacter::PossessedBy(AController* NewController)
 
 	AbilitySystemComponent = AftermathPlayerState->GetAbilitySystemComponent();
 	AbilitySystemComponent->InitAbilityActorInfo(AftermathPlayerState,  this);
-	// AddCharacterAbilities();
+	AddCharacterAbilities();
 	
 	AttributeSet = AftermathPlayerState->GetAttributeSet();
 	check(AttributeSet);
