@@ -15,10 +15,23 @@ void UAMathProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandle H
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
 	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::MakeRandomColor(), TEXT("RMB Ability Activated C++"));
+
+	// Here APlayerController or ACharacter refer to your own player controller or character classes
+	APlayerController* PC = GetWorld()->GetFirstPlayerController();
+	ACharacter* PlayerActor = PC ? Cast<ACharacter>(PC->GetPawn()) : nullptr;
 	
-	FVector SpawnLocation = FVector(0.f, 0.f, 0.f);
-	FRotator SpawnRotation = FRotator(0.f, 0.f, 0.f);
+	// get player location
+	FVector PlayerLocation = PlayerActor->GetActorLocation();
+	// get player rotation
+	FRotator PlayerRotation = PlayerActor->GetActorRotation();
+	
+	FVector SpawnLocation = PlayerLocation;
+	FRotator SpawnRotation = PlayerRotation;
 	bool HasAuth = HasAuthority(&ActivationInfo);
-	AActor* SpawnedProjectile = GetWorld()->SpawnActor<AEnemyCharacter>(ProjectileMissile, SpawnLocation, SpawnRotation);
+
+	
+	
+	AActor* SpawnedProjectile = GetWorld()->SpawnActor<AAmathProjectile>(ProjectileMissile, SpawnLocation, SpawnRotation);
+
 	
 }

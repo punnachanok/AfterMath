@@ -17,6 +17,6 @@ class AFTERMATH_API UAMathProjectileAbility : public UAMathGameplayAbility
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere)
-	TSubclassOf<AEnemyCharacter> ProjectileMissile;
+	TSubclassOf<AAmathProjectile> ProjectileMissile;
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
 };

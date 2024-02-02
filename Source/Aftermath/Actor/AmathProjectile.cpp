@@ -15,14 +15,17 @@ AAmathProjectile::AAmathProjectile()
 	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
 	Scene = CreateDefaultSubobject<USceneComponent>("RootComponent");
+
+	SetRootComponent(Scene);
+	Mesh->SetupAttachment(Scene);
+	Sphere->SetupAttachment(Mesh);
+	
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
 	ProjectileMovementComponent->InitialSpeed = 200.f;
 	ProjectileMovementComponent->MaxSpeed = 200.f;
 	ProjectileMovementComponent->ProjectileGravityScale = 0;
 
-	SetRootComponent(Scene);
-	Mesh->SetupAttachment(Scene);
-	Sphere->SetupAttachment(Mesh);
+	
 }
 
 // Called when the game starts or when spawned
