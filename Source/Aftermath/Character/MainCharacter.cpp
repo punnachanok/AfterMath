@@ -12,6 +12,7 @@
 #include "Animation/AnimInstance.h"
 #include "../GameplayAbility/AftermathAttributeSet.h"
 #include "Aftermath/UI/AmathHUD.h"
+#include "Components/CapsuleComponent.h"
 
 
 AMainCharacter::AMainCharacter()
@@ -78,6 +79,9 @@ void AMainCharacter::BeginPlay()
 	//UE_LOG(LogTemp, Warning, TEXT("BeginPlay Started"));
 
 	CharacterMovementComponent->MaxWalkSpeed = 1000;
+
+
+	
 }
 
 //For the client

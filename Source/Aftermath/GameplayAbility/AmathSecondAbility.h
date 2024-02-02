@@ -4,19 +4,20 @@
 
 #include "CoreMinimal.h"
 #include "AMathGameplayAbility.h"
-#include "AMathProjectileAbility.generated.h"
+#include "AmathSecondAbility.generated.h"
 
-class AEnemyCharacter;
-class AAmathProjectile;
+class ASecondMissile;
 /**
  * 
  */
 UCLASS()
-class AFTERMATH_API UAMathProjectileAbility : public UAMathGameplayAbility
+class AFTERMATH_API UAmathSecondAbility : public UAMathGameplayAbility
 {
 	GENERATED_BODY()
 public:
-	UPROPERTY(EditAnywhere)
-	TSubclassOf<AEnemyCharacter> ProjectileMissile;
 	virtual void ActivateAbility(const FGameplayAbilitySpecHandle Handle, const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo, const FGameplayEventData* TriggerEventData) override;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<ASecondMissile> Missile;
+	
 };

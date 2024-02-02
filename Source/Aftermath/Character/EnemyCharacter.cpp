@@ -19,4 +19,5 @@ void AEnemyCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	AbilitySystemComponent->InitAbilityActorInfo(this,  this);
+	
 }

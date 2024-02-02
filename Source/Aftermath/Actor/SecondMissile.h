@@ -4,34 +4,34 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "AmathProjectile.generated.h"
+#include "SecondMissile.generated.h"
 
 class UProjectileMovementComponent;
 class USphereComponent;
 
 UCLASS()
-class AFTERMATH_API AAmathProjectile : public AActor
+class AFTERMATH_API ASecondMissile : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
-	AAmathProjectile();
-	
+	ASecondMissile();
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 	UProjectileMovementComponent* ProjectileMovementComponent;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 	
-
-private:
-	UPROPERTY(VisibleAnywhere)
-	TObjectPtr<USphereComponent> Sphere;
-
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<UStaticMeshComponent> Mesh;
 
-	UPROPERTY()
+	UPROPERTY(EditAnywhere)
 	TObjectPtr<USceneComponent> Scene;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USphereComponent> Sphere;
+public:
+
 };
