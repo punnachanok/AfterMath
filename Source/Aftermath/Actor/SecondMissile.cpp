@@ -2,7 +2,9 @@
 
 
 #include "SecondMissile.h"
-
+#include "SecondMissile.h"
+#include "NiagaraComponent.h"
+#include "NiagaraSystem.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 
@@ -13,13 +15,13 @@ ASecondMissile::ASecondMissile()
 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>("Mesh");
+	Niagara = CreateDefaultSubobject<UNiagaraComponent>("Niagara");
 	Scene = CreateDefaultSubobject<USceneComponent>("Scene");
 	Sphere = CreateDefaultSubobject<USphereComponent>("Sphere");
 
 	SetRootComponent(Scene);
-	Mesh->SetupAttachment(Scene);
 	Sphere->SetupAttachment(Scene);
+	Niagara->SetupAttachment(Sphere);
 
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
 	ProjectileMovementComponent->InitialSpeed = 200.f;

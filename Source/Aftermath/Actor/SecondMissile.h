@@ -8,6 +8,7 @@
 
 class UProjectileMovementComponent;
 class USphereComponent;
+class UNiagaraComponent;
 
 UCLASS()
 class AFTERMATH_API ASecondMissile : public AActor
@@ -25,7 +26,7 @@ protected:
 	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditAnywhere)
-	TObjectPtr<UStaticMeshComponent> Mesh;
+	TObjectPtr<UNiagaraComponent> Niagara;
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USceneComponent> Scene;

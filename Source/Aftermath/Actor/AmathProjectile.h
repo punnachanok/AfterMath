@@ -6,8 +6,10 @@
 #include "GameFramework/Actor.h"
 #include "AmathProjectile.generated.h"
 
+class UNiagaraSystem;
 class UProjectileMovementComponent;
 class USphereComponent;
+class UAudioComponent;
 
 UCLASS()
 class AFTERMATH_API AAmathProjectile : public AActor
@@ -20,6 +22,12 @@ public:
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
 	UProjectileMovementComponent* ProjectileMovementComponent;
+
+	UFUNCTION()
+	void OnOverLap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
+	
+	//void AAftermathEffectActor::OnOverLap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+// 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -34,4 +42,10 @@ private:
 
 	UPROPERTY()
 	TObjectPtr<USceneComponent> Scene;
+
+	UPROPERTY(EditAnywhere, Category = "Niagara")
+	TObjectPtr<UNiagaraSystem> ImpactEffect;
+
+	UPROPERTY(EditAnywhere)
+	TObjectPtr<USoundBase> ImpactAudio;
 };

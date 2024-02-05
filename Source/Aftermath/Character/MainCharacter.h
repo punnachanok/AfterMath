@@ -49,6 +49,6 @@ protected:
 	UPROPERTY()
 	AAftermathPlayerState* AftermathPlayerState;
 
-	UPROPERTY()
-	UAftermathAttributeSet* AftermathAttributeSet;
+	// UPROPERTY()
+	// UAftermathAttributeSet* AftermathAttributeSet;
 };

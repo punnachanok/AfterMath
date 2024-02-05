@@ -10,6 +10,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Blueprint/UserWidget.h"
 #include "../UI/OverlayWidgetController.h"
+#include "Aftermath/Character/EnemyCharacter.h"
 
 void AAmathHUD::SetOverlayWidget()
 {
@@ -30,7 +31,6 @@ void AAmathHUD::InitOverlay(APlayerController* PC, APlayerState* PS, UAbilitySys
 	
 	OverlayWidget->SetWidgetController(AmathWidgetControllerPtr);
 	AmathWidgetControllerPtr->BindCallbacksToDependencies();
-
 	
 	
 	OverlayWidget->AddToViewport();

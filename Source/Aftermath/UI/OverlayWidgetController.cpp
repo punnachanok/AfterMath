@@ -33,7 +33,7 @@ void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data)
 {
 	OnHealthChanged.Broadcast(Data.NewValue);
 	FString floatAsString = FString::Printf(TEXT("%f"), Data.NewValue);
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Emerald, floatAsString);
+	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Emerald, floatAsString);
 }
 
 void UOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& Data) const
@@ -41,8 +41,8 @@ void UOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& Da
 	OnMaxHealthChanged.Broadcast(Data.NewValue);
 
 	FString floatAsString = FString::Printf(TEXT("%f"), Data.NewValue);
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Silver, floatAsString);
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Silver, "OnMaxHealthChangedCalled");
+	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Silver, floatAsString);
+	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Silver, "OnMaxHealthChangedCalled");
 }
 
 void UOverlayWidgetController::ManaChanged(const FOnAttributeChangeData& Data) const

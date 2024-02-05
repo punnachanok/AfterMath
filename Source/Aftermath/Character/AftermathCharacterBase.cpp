@@ -4,6 +4,7 @@
 #include "AftermathCharacterBase.h"
 
 #include "Aftermath/GameplayAbility/AftermathAbilitySystemComponent.h"
+#include "Components/CapsuleComponent.h"
 
 // Sets default values
 AAftermathCharacterBase::AAftermathCharacterBase()
@@ -32,4 +33,20 @@ void AAftermathCharacterBase::AddCharacterAbilities()
 	if(!HasAuthority()) return;
 
 	AMathASC->AddCharacterAbilities(StartupAbilities);
+}
+
+void AAftermathCharacterBase::Die()
+{
+	UPhysicsAsset* physAsset = GetMesh()->GetPhysicsAsset();
+	if (physAsset != nullptr)
+	{
+		GetMesh()->SetSimulatePhysics(true);
+		GetMesh()->WakeAllRigidBodies();
+
+		GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+		GetMesh()->SetCollisionProfileName(TEXT("Ragdoll"));
+
+		SetLifeSpan(5);
+	}
 }

@@ -2,16 +2,16 @@
 
 
 #include "../Character/FriendCharacter.h"
-
-#include "AbilitySystemComponent.h"
+#include "Aftermath/GameplayAbility/AftermathAttributeSet.h"
+#include "Aftermath/GameplayAbility/AftermathAbilitySystemComponent.h"
 
 AFriendCharacter::AFriendCharacter()
 {
-	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>("Ability System Component");
+	AbilitySystemComponent = CreateDefaultSubobject<UAftermathAbilitySystemComponent>("Ability System Component");
 	AbilitySystemComponent->SetIsReplicated(true);
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 	
-	AttributeSet = CreateDefaultSubobject<UAttributeSet>("Attribute Set");
+	AttributeSet = CreateDefaultSubobject<UAftermathAttributeSet>("Attribute Set"); // 0x000006b32dfe60c0 (Name="Attribute Set")
 }
 
 void AFriendCharacter::BeginPlay()

@@ -14,7 +14,7 @@ void UAMathProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandle H
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
-	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::MakeRandomColor(), TEXT("RMB Ability Activated C++"));
+	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::MakeRandomColor(), TEXT("RMB Ability Activated C++"));
 
 	// Here APlayerController or ACharacter refer to your own player controller or character classes
 	APlayerController* PC = GetWorld()->GetFirstPlayerController();

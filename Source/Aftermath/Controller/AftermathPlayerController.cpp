@@ -106,7 +106,7 @@ void AAftermathPlayerController::Tick(float DeltaSeconds)
 	Super::Tick(DeltaSeconds);
 
 	//UE_LOG(LogTemp, Warning, TEXT("IsRunning: %s"), IsRunning ? TEXT("1") : TEXT("0"))
-	UE_LOG(LogTemp, Warning, TEXT("CoolDown: %f"), RunCoolDown);
+	//UE_LOG(LogTemp, Warning, TEXT("CoolDown: %f"), RunCoolDown);
 	float StaminaF = AMAttributeSet->GetStamina();
 	
 	
@@ -134,7 +134,7 @@ void AAftermathPlayerController::Tick(float DeltaSeconds)
 
 void AAftermathPlayerController::AbilityInputTagPressed(FGameplayTag InputTag)
 {
-	GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Silver, FString::Printf(TEXT("C++ %s"), *InputTag.ToString()));
+	//GEngine->AddOnScreenDebugMessage(1, 3.f, FColor::Silver, FString::Printf(TEXT("C++ %s"), *InputTag.ToString()));
 }
 
 void AAftermathPlayerController::AbilityInputTagReleased(FGameplayTag InputTag)

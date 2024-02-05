@@ -7,6 +7,7 @@
 #include "GameFramework/HUD.h"
 #include "AmathHUD.generated.h"
 
+class AEnemyCharacter;
 class UOverlayWidgetController;
 class UAmathWidgetController;
 class UAttributeSet;

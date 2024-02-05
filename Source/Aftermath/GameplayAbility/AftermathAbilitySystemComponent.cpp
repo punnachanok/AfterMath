@@ -27,13 +27,13 @@ void UAftermathAbilitySystemComponent::AbilityActorInfoSet()
 	OnGameplayEffectAppliedDelegateToSelf.AddUObject(this, &UAftermathAbilitySystemComponent::EffectApplied);
 
 	const FAmathGameplayTags& GameplayTags = FAmathGameplayTags::Get();
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Secondary_Armour.ToString()));
-	GEngine->AddOnScreenDebugMessage(0, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_Health.ToString()));
-	GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_MaxHealth.ToString()));
-	GEngine->AddOnScreenDebugMessage(2, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_Mana.ToString()));
-	GEngine->AddOnScreenDebugMessage(3, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_MaxMana.ToString()));
-	GEngine->AddOnScreenDebugMessage(4, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_Stamina.ToString()));
-	GEngine->AddOnScreenDebugMessage(5, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_MaxStamina.ToString()));
+	//GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Secondary_Armour.ToString()));
+	//GEngine->AddOnScreenDebugMessage(0, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_Health.ToString()));
+	//GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_MaxHealth.ToString()));
+	//GEngine->AddOnScreenDebugMessage(2, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_Mana.ToString()));
+	//GEngine->AddOnScreenDebugMessage(3, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_MaxMana.ToString()));
+	//GEngine->AddOnScreenDebugMessage(4, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_Stamina.ToString()));
+	//GEngine->AddOnScreenDebugMessage(5, 10.f, FColor::Orange, FString::Printf(TEXT("Tag: %s"), *GameplayTags.AttributeSet_Vital_MaxStamina.ToString()));
 }
 
 void UAftermathAbilitySystemComponent::EffectApplied(UAbilitySystemComponent* Source,

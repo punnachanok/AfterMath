@@ -2,8 +2,8 @@
 
 
 #include "AmathSecondAbility.h"
-
 #include "Aftermath/Actor/SecondMissile.h"
+#include "Aftermath/Character/MainCharacter.h"
 
 void UAmathSecondAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handle,
                                           const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
@@ -11,8 +11,17 @@ void UAmathSecondAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handl
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
-	FVector SpawnLocation = FVector(0.f, 0.f, 0.f);
-	FRotator SpawnRotation = FRotator(0.f, 0.f, 0.f);
+	// Here APlayerController or ACharacter refer to your own player controller or character classes
+	APlayerController* PC = GetWorld()->GetFirstPlayerController();
+	ACharacter* PlayerActor = PC ? Cast<ACharacter>(PC->GetPawn()) : nullptr;
+	
+	// get player location
+	FVector PlayerLocation = PlayerActor->GetActorLocation();
+	// get player rotation
+	FRotator PlayerRotation = PlayerActor->GetActorRotation();
+	
+	FVector SpawnLocation = PlayerLocation;
+	FRotator SpawnRotation = PlayerRotation;
 
 	ASecondMissile* SpawnMissile = GetWorld()->SpawnActor<ASecondMissile>(Missile, SpawnLocation, SpawnRotation);
 }

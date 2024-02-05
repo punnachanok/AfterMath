@@ -8,10 +8,10 @@
 
 UAftermathAttributeSet::UAftermathAttributeSet()
 {
-	InitHealth(50);
+	InitHealth(100);
 	InitMaxHealth(100);
 
-	InitMana(25);
+	InitMana(50);
 	InitMaxMana(50);
 
 	InitStamina(50);
