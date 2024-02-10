@@ -37,7 +37,7 @@ AMainCharacter::AMainCharacter()
 	bUseControllerRotationRoll = false;
 
 	
-	
+	Tags.Add(FName("Player"));
 }
 
 void AMainCharacter::Tick(float DeltaSeconds)

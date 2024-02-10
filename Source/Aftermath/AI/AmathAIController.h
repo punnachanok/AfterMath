@@ -6,6 +6,8 @@
 #include "Runtime/AIModule/Classes/AIController.h"
 #include "AmathAIController.generated.h"
 
+class UBehaviorTreeComponent;
+
 UCLASS()
 class AFTERMATH_API AAmathAIController : public AAIController
 {
@@ -15,11 +17,10 @@ public:
 	// Sets default values for this actor's properties
 	AAmathAIController();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	//UPROPERTY()
+	//TObjectPtr<UBlackboardComponent> BlackboardComponent;
+	
+	UPROPERTY()
+	TObjectPtr<UBehaviorTreeComponent> BehaviorTreeComponent;
 
-public:
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 };

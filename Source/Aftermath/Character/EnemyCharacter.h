@@ -6,6 +6,9 @@
 #include "../Character/AftermathCharacterBase.h"
 #include "EnemyCharacter.generated.h"
 
+class UBehaviorTree;
+class AAmathAIController;
+class AAIController;
 struct FOnAttributeChangeData;
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnEnemyHealthChangedSignature, float, NewEnemyHealth);
 
@@ -31,11 +34,19 @@ public:
 
 	virtual void BeginPlay() override;
 
+	virtual void PossessedBy(AController* NewController) override;
+	
 	UPROPERTY(BlueprintAssignable);
 	FOnEnemyHealthChangedSignature OnHealthChanged;
 	
 	void HealthChanged(const FOnAttributeChangeData& Data);
 
+	UPROPERTY(EditAnywhere, Category = "AI")
+	TObjectPtr<UBehaviorTree> BehaviorTree;
+	
+	UPROPERTY(EditAnywhere, Category = "AI")
+	TObjectPtr<AAmathAIController> AmathAIController;
+	
 	OnEnemyHealthChangedDelegate OnEnemyHealthChanged;
+	
 };
-//TODO:

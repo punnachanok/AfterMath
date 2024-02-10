@@ -4,9 +4,12 @@
 #include "../Character/EnemyCharacter.h"
 
 #include "AbilitySystemComponent.h"
+#include "Aftermath/AI/AmathAIController.h"
 #include "Aftermath/GameplayAbility/AftermathAbilitySystemComponent.h"
 #include "Aftermath/GameplayAbility/AftermathAttributeSet.h"
 #include "Aftermath/UI/OverlayWidgetController.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardComponent.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
@@ -26,6 +29,15 @@ void AEnemyCharacter::BeginPlay()
 	Super::BeginPlay();
 
 	AbilitySystemComponent->InitAbilityActorInfo(this,  this);
+}
+
+void AEnemyCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+
+	AmathAIController = Cast<AAmathAIController>(NewController);
+	AmathAIController->GetBlackboardComponent()->InitializeBlackboard(*BehaviorTree->BlackboardAsset);
+	AmathAIController->RunBehaviorTree(BehaviorTree);
 }
 
 void AEnemyCharacter::HealthChanged(const FOnAttributeChangeData& Data)
