@@ -6,6 +6,7 @@
 #include "../Character/AftermathCharacterBase.h"
 #include "EnemyCharacter.generated.h"
 
+class UAMathGameplayAbility;
 class UBehaviorTree;
 class AAmathAIController;
 class AAIController;
@@ -48,5 +49,10 @@ public:
 	TObjectPtr<AAmathAIController> AmathAIController;
 	
 	OnEnemyHealthChangedDelegate OnEnemyHealthChanged;
-	
+
+	UPROPERTY(EditAnywhere, Category = "Ability")
+	TSubclassOf<UAMathGameplayAbility> EnemyAttackAbility;
+
+	UFUNCTION(BlueprintCallable)
+	void EnemyAttack();
 };

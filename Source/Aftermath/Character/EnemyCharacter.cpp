@@ -7,6 +7,7 @@
 #include "Aftermath/AI/AmathAIController.h"
 #include "Aftermath/GameplayAbility/AftermathAbilitySystemComponent.h"
 #include "Aftermath/GameplayAbility/AftermathAttributeSet.h"
+#include "Aftermath/GameplayAbility/AMathGameplayAbility.h"
 #include "Aftermath/UI/OverlayWidgetController.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -47,5 +48,20 @@ void AEnemyCharacter::HealthChanged(const FOnAttributeChangeData& Data)
 	if(Data.NewValue <= 0)
 	{
 		Die();
+	}
+}
+
+void AEnemyCharacter::EnemyAttack()
+{
+	if(AbilitySystemComponent)
+	{
+		if (EnemyAttackAbility)
+		{
+			FGameplayAbilitySpecDef AbilitySpecDef = FGameplayAbilitySpecDef();
+			AbilitySpecDef.Ability = EnemyAttackAbility;
+
+			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilitySpecDef, 1);
+			AbilitySystemComponent->GiveAbilityAndActivateOnce(AbilitySpec);
+		}
 	}
 }

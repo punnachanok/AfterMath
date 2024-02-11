@@ -49,11 +49,11 @@ void AAmathProjectile::OnOverLap(UPrimitiveComponent* OverlappedComponent,
 			AftermathAttributeSet);
 			MutableAftermathAttributeSet->SetHealth(AftermathAttributeSet->GetHealth() - 25.f);
 			UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ImpactEffect, this->GetActorLocation());
-			UGameplayStatics::PlaySoundAtLocation(this, ImpactAudio, this->GetActorLocation(), FRotator::ZeroRotator);
+			UGameplayStatics::PlaySoundAtLocation(this, ImpactAudio, this->GetActorLocation(), FRotator::ZeroRotator, 0.5);
 		}
 	
 	
-	Destroy();
+	this->Destroy();
 }
 
 // Called when the game starts or when spawned

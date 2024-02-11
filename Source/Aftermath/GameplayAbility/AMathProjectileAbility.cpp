@@ -28,10 +28,6 @@ void UAMathProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandle H
 	FVector SpawnLocation = PlayerLocation;
 	FRotator SpawnRotation = PlayerRotation;
 	bool HasAuth = HasAuthority(&ActivationInfo);
-
-	
 	
 	AActor* SpawnedProjectile = GetWorld()->SpawnActor<AAmathProjectile>(ProjectileMissile, SpawnLocation, SpawnRotation);
-
-	
 }
