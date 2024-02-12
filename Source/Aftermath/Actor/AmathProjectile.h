@@ -48,4 +48,7 @@ private:
 
 	UPROPERTY(EditAnywhere)
 	TObjectPtr<USoundBase> ImpactAudio;
+
+	UPROPERTY(EditAnywhere, Category = "ActorSide")
+	FName ActorSide;
 };

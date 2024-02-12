@@ -23,6 +23,8 @@ AEnemyCharacter::AEnemyCharacter()
 	const UAftermathAttributeSet* AMathAttributeSet = CastChecked<UAftermathAttributeSet>(AttributeSet);
 	AbilitySystemComponent->GetGameplayAttributeValueChangeDelegate(
 	AMathAttributeSet->GetHealthAttribute()).AddUObject(this, &AEnemyCharacter::HealthChanged);
+
+	Tags.Add("Enemy");
 }
 
 void AEnemyCharacter::BeginPlay()

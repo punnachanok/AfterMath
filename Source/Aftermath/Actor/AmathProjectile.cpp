@@ -38,6 +38,7 @@ void AAmathProjectile::OnOverLap(UPrimitiveComponent* OverlappedComponent,
 	AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep,
 	const FHitResult& SweepResult)
 {
+	if(OtherActor->Tags.Contains(ActorSide)) return;
 	GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Emerald, "Projectile Overlap");
 
 	if(IAbilitySystemInterface* ASCInterface = Cast<IAbilitySystemInterface>(OtherActor))
@@ -53,7 +54,7 @@ void AAmathProjectile::OnOverLap(UPrimitiveComponent* OverlappedComponent,
 		}
 	
 	
-	this->Destroy();
+	//this->Destroy();
 }
 
 // Called when the game starts or when spawned
