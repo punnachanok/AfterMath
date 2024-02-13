@@ -23,5 +23,5 @@ void UAmathSecondAbility::ActivateAbility(const FGameplayAbilitySpecHandle Handl
 	FVector SpawnLocation = PlayerLocation;
 	FRotator SpawnRotation = PlayerRotation;
 
-	ASecondMissile* SpawnMissile = GetWorld()->SpawnActor<ASecondMissile>(Missile, SpawnLocation, SpawnRotation);
+	AActor* SpawnMissile = GetWorld()->SpawnActor<AActor>(Missile, SpawnLocation, SpawnRotation);
 }

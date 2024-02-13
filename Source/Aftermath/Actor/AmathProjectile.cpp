@@ -25,6 +25,8 @@ AAmathProjectile::AAmathProjectile()
 	Mesh->SetupAttachment(Scene);
 	Sphere->SetupAttachment(Mesh);
 	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AAmathProjectile::OnOverLap);
+
+	Mesh->SetCollisionResponseToAllChannels(ECR_Ignore);
 	
 	ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>("ProjectileMovementComponent");
 	ProjectileMovementComponent->InitialSpeed = 200.f;
