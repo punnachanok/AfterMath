@@ -11,6 +11,8 @@
 #include "Aftermath/UI/OverlayWidgetController.h"
 #include "BehaviorTree/BehaviorTree.h"
 #include "BehaviorTree/BlackboardComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Kismet/KismetMathLibrary.h"
 
 AEnemyCharacter::AEnemyCharacter()
 {
@@ -50,20 +52,46 @@ void AEnemyCharacter::HealthChanged(const FOnAttributeChangeData& Data)
 	if(Data.NewValue <= 0)
 	{
 		Die();
+		IsDead = true;
 	}
 }
 
 void AEnemyCharacter::EnemyAttack()
 {
+	if(IsDead) return;
+	
 	if(AbilitySystemComponent)
 	{
 		if (EnemyAttackAbility)
 		{
+			FRotator EnemyRotation;
+			TArray<AActor*> ActorsWithTag;
+			UGameplayStatics::GetAllActorsWithTag(this, FName("Player"), ActorsWithTag);
+			float LowestDistance = 10000;
+			AActor* ClosestActor = nullptr;
+
+			for(AActor* Actor : ActorsWithTag)
+			{
+				float DistanceToTarget = this->GetDistanceTo(Actor);
+				if(LowestDistance > DistanceToTarget)
+				{
+					LowestDistance = DistanceToTarget;
+					ClosestActor = Actor;
+				}
+			}
+
+			if(ClosestActor)
+			{
+				EnemyRotation =  UKismetMathLibrary::FindLookAtRotation(this->GetActorLocation(), ClosestActor->GetActorLocation());
+				this->SetActorRotation(EnemyRotation);
+			}
+			
 			FGameplayAbilitySpecDef AbilitySpecDef = FGameplayAbilitySpecDef();
 			AbilitySpecDef.Ability = EnemyAttackAbility;
 
 			FGameplayAbilitySpec AbilitySpec = FGameplayAbilitySpec(AbilitySpecDef, 1);
 			AbilitySystemComponent->GiveAbilityAndActivateOnce(AbilitySpec);
+			
 		}
 	}
 }

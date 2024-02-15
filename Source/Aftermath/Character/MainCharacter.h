@@ -6,7 +6,8 @@
 #include "AftermathCharacterBase.h"
 #include "MainCharacter.generated.h"
 
-
+class UMathProblems;
+class UWidgetComponent;
 class UAftermathAttributeSet;
 class AAftermathPlayerState;
 /**
@@ -28,6 +29,9 @@ public:
 	virtual void BeginPlay() override;
 	virtual void OnRep_PlayerState() override;
 	virtual void PossessedBy(AController* NewController) override;
+	void GenerateRandomEquation();
+
+	int Ans {0};
 
 	UPROPERTY()
 	UCharacterMovementComponent* CharacterMovementComponent;
@@ -38,7 +42,8 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Camera")
 	UCameraComponent* Camera = nullptr;
 
-	
+	UPROPERTY(EditAnywhere, Category = "MathQuestion")
+	UWidgetComponent* MathQuestion = nullptr;
 
 	UPROPERTY()
 	UAnimInstance* AnimInstance {nullptr};
@@ -49,6 +54,7 @@ protected:
 	UPROPERTY()
 	AAftermathPlayerState* AftermathPlayerState;
 
+	TObjectPtr<UMathProblems> MathProblemWidget;
 	// UPROPERTY()
 	// UAftermathAttributeSet* AftermathAttributeSet;
 };

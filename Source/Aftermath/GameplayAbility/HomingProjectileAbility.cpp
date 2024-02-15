@@ -5,6 +5,8 @@
 
 #include "AITypes.h"
 #include "Aftermath/Actor/AmathHomingProjectile.h"
+#include "Aftermath/Character/EnemyCharacter.h"
+#include "Aftermath/Character/MainCharacter.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -13,11 +15,17 @@ void UHomingProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandle 
                                                const FGameplayAbilityActorInfo* ActorInfo, const FGameplayAbilityActivationInfo ActivationInfo,
                                                const FGameplayEventData* TriggerEventData)
 {
-	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 
 	// Here APlayerController or ACharacter refer to your own player controller or character classes
 	APlayerController* PC = GetWorld()->GetFirstPlayerController();
 	ACharacter* PlayerActor = PC ? Cast<ACharacter>(PC->GetPawn()) : nullptr;
+	
+	if(Cast<AMainCharacter>(PlayerActor)->IsDead)
+	{
+		return;
+	}
+	
+	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 	
 	// get player location
 	FVector PlayerLocation = PlayerActor->GetActorLocation();
@@ -27,6 +35,8 @@ void UHomingProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandle 
 	FVector SpawnLocation = PlayerLocation;
 	FRotator SpawnRotation = PlayerRotation;
 	bool HasAuth = HasAuthority(&ActivationInfo);
+
+	
 	
 	AActor* SpawnedProjectile = GetWorld()->SpawnActor<AAmathHomingProjectile>(HomingProjectileMissile, SpawnLocation, SpawnRotation);
 	AAmathHomingProjectile* HomingProjectile = Cast<AAmathHomingProjectile>(SpawnedProjectile);
@@ -38,11 +48,14 @@ void UHomingProjectileAbility::ActivateAbility(const FGameplayAbilitySpecHandle 
 
 	for(AActor* Actor : ActorsWithTag)
 	{
-		float DistanceToTarget = Actor->GetDistanceTo(HomingProjectile);
-		if(LowestDistance > DistanceToTarget)
+		if(Cast<AEnemyCharacter>(Actor)->IsDead == false)
 		{
-			LowestDistance = DistanceToTarget;
-			ClosestActor = Actor;
+			float DistanceToTarget = Actor->GetDistanceTo(HomingProjectile);
+			if(LowestDistance > DistanceToTarget)
+			{
+				LowestDistance = DistanceToTarget;
+				ClosestActor = Actor;
+			}
 		}
 		
 		//GEngine->AddOnScreenDebugMessage(2, .5f, FColor::Orange, *Actor->GetName());

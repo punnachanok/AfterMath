@@ -55,6 +55,7 @@ void AAmathHomingProjectile::OnOverLap(UPrimitiveComponent* OverlappedComponent,
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), ImpactEffect, this->GetActorLocation());
 		UGameplayStatics::PlaySoundAtLocation(this, ImpactAudio, this->GetActorLocation(), FRotator::ZeroRotator, 0.5);
 	}
+	Destroy();
 }
 
 // Called when the game starts or when spawned

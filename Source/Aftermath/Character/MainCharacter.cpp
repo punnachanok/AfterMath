@@ -12,7 +12,10 @@
 #include "Animation/AnimInstance.h"
 #include "../GameplayAbility/AftermathAttributeSet.h"
 #include "Aftermath/UI/AmathHUD.h"
+#include "Aftermath/UI/MathProblems.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/EditableTextBox.h"
+#include "Components/WidgetComponent.h"
 
 
 AMainCharacter::AMainCharacter()
@@ -28,6 +31,9 @@ AMainCharacter::AMainCharacter()
 	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName); // Attach camera to end of spring arm.
 	Camera->bUsePawnControlRotation = false; // Let the arm control the camera rotation.
 
+	MathQuestion = CreateDefaultSubobject<UWidgetComponent>("MathQuestion");
+	MathQuestion->SetupAttachment(RootComponent);
+	
 	SpringArm->bInheritPitch = false;
 	SpringArm->bInheritYaw = false;
 	SpringArm->bInheritPitch = false;
@@ -35,7 +41,7 @@ AMainCharacter::AMainCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
-
+	
 	
 	Tags.Add(FName("Player"));
 }
@@ -80,8 +86,9 @@ void AMainCharacter::BeginPlay()
 
 	CharacterMovementComponent->MaxWalkSpeed = 1000;
 
+	MathProblemWidget = Cast<UMathProblems>(MathQuestion->GetUserWidgetObject());
 
-	
+	GenerateRandomEquation();
 }
 
 //For the client
@@ -124,4 +131,28 @@ void AMainCharacter::PossessedBy(AController* NewController)
 	AAmathHUD* AmathHUD = Cast<AAmathHUD>(HUD);
 	
 	AmathHUD->InitOverlay(PlayerController, AftermathPlayerState, AbilitySystemComponent, AttributeSet);
+}
+
+void AMainCharacter::GenerateRandomEquation()
+{
+	TArray<FString> Operators {TEXT("+"), TEXT("-"), TEXT("*"), TEXT("/")};
+
+	int32 Num1 = FMath::RandRange(1, 10);
+	int32 Num2 = FMath::RandRange(1, 10);
+	FString Op = Operators[FMath::RandRange(0, 3)];
+
+	if(Op == "+") Ans = Num1 + Num2;
+	else if (Op == "-") Ans = Num1 - Num2;
+	else if (Op == "*") Ans = Num1 * Num2;
+	else
+	{
+		Num1 *= Num2;
+		Ans = Num1 / Num2;
+	}
+
+	FString Equation = FString::Printf(TEXT("%d %s %d"), Num1, *Op, Num2);
+	
+	MathProblemWidget->LeftAns->SetText(FText::AsNumber(Ans));
+	MathProblemWidget->Question->SetText(FText::FromString(Equation));
+	MathProblemWidget->RightAns->SetText(FText::AsNumber(Ans));
 }

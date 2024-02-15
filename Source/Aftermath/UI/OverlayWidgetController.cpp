@@ -3,6 +3,7 @@
 
 #include "../UI/OverlayWidgetController.h"
 
+#include "Aftermath/Character/MainCharacter.h"
 #include "Aftermath/GameplayAbility/AftermathAttributeSet.h"
 
 void UOverlayWidgetController::BindCallbacksToDependencies()
@@ -34,6 +35,12 @@ void UOverlayWidgetController::HealthChanged(const FOnAttributeChangeData& Data)
 	OnHealthChanged.Broadcast(Data.NewValue);
 	FString floatAsString = FString::Printf(TEXT("%f"), Data.NewValue);
 	//GEngine->AddOnScreenDebugMessage(-1, 5, FColor::Emerald, floatAsString);
+	if(Data.NewValue <= 0)
+	{
+		AMainCharacter* PlayerCharacter = Cast<AMainCharacter>(PlayerController->GetPawn());
+		PlayerCharacter->IsDead = true;
+		PlayerCharacter->Die();
+	}
 }
 
 void UOverlayWidgetController::MaxHealthChanged(const FOnAttributeChangeData& Data) const
